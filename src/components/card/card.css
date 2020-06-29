@@ -1,0 +1,12 @@
+.card{
+    max-width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 0.4rem;
+    margin: 10px 10px 10px 10px;
+}
+.card-body h3.card-title{
+    margin: 0 0 10px 0;
+}
+.card-body h4.card-subtitle{
+    margin:0;
+}
