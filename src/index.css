@@ -168,6 +168,9 @@ body{
 .padding-bttm-5{
   padding-bottom: 25px;
 }
+.text-center{
+  text-align: center;
+}
 .w-100{
   width: 100%;
 }
@@ -183,6 +186,13 @@ body{
 }
 .d-inline-block{
   display: inline-block;
+}
+.message{
+    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
 }
 .form-control {
   width: 100%;

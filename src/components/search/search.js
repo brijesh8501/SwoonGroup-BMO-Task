@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import  { connect } from 'react-redux';
 import { fetchRestaurantsByUserInput, fetchCity } from '../../action/action';
-import FetchData from './fetchData.search';
+import ShowData from '../../helper/showData';
 import {toTitleCase} from '../../app.env.const';
 import $ from "jquery";
 import './search.css';
@@ -99,7 +99,7 @@ class Search extends Component{
         }
     }
     componentDidUpdate(prevProps, prevState) {
-        (this.state.searchFilter !== prevState.searchFilter)&&
+        if(this.state.searchFilter !== prevState.searchFilter){
             this.setState({ 
                 searchInput:'', 
                 autoCompleteList:[], 
@@ -107,7 +107,14 @@ class Search extends Component{
                     autoCompleteValue: '',
                     autoCompleteListShow: false,
                     autoCompleteValueSet: false 
-                }});
+                },
+                searchResult: []
+            });
+        }else  if(this.state.searchInput !== prevState.searchInput){
+            this.setState({ 
+                searchResult: []
+            });
+        }
     };
    
     componentWillReceiveProps = (nextProps) => {
@@ -125,9 +132,15 @@ class Search extends Component{
     componentDidMount(){
         this.props.fetchCity();
     }
+    loadResult = () =>{
+        let length = Object.entries(this.state.searchResult).length === 0;
+        if(!length){
+            return (this.state.searchResult.restaurants.length===0)? (<div className="message margin-tp-5 text-center">No record found!</div>) : (<ShowData data={this.state.searchResult.restaurants}/>)
+        }
+
+    }
     render(){
         const {settings, autoCompleteList} = this.state;
-        let length = Object.entries(this.state.searchResult).length === 0;
         return(
             <div>
                 <div className="search-wrapper">
@@ -232,7 +245,7 @@ class Search extends Component{
                 {(this.state.loading)&&
                    <div className="loader"><span>Loading...</span></div>
                 }
-                { (!length)&&<FetchData data={this.state.searchResult} />}
+                { this.loadResult()}
             </div>
         )
     }

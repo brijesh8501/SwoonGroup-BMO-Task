@@ -4,8 +4,8 @@ import {Link} from 'react-router-dom';
 const CreateMenu = (props) =>{
     let template = null;
     
-   // const checkUrl = window.location.pathname.replace(/#/, "");
-    const checkActive = ((window.location.pathname===props.hrefLink) || (props.hrefLink !== "/" && window.location.pathname.includes(props.hrefLink))) ? 'active' : '';
+   // tempoaray kept both side active class because there is only single item in menu
+    const checkActive = ((window.location.pathname===props.hrefLink) || (props.hrefLink !== "/" && window.location.pathname.includes(props.hrefLink))) ? 'active' : 'active';
     
     switch(props.menuType)
     {

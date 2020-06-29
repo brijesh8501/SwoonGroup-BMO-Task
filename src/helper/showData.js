@@ -7,6 +7,7 @@ class ShowData extends Component {
     constructor(props) {
       super(props);
       this.state = {
+        todo: this.props.data,
         currentPage: 1,
         todosPerPage: 10,
         upperPageBound: 10,
@@ -20,13 +21,18 @@ class ShowData extends Component {
       this.btnIncrementClick = this.btnIncrementClick.bind(this);
       this.btnNextClick = this.btnNextClick.bind(this);
       this.btnPrevClick = this.btnPrevClick.bind(this);
-      // this.componentDidMount = this.componentDidMount.bind(this);
+      //this.componentDidMount = this.componentDidMount.bind(this);
       this.setPrevAndNextBtnClass = this.setPrevAndNextBtnClass.bind(this);
+
     }
     componentDidUpdate() {
         $("ul li.active").removeClass('active');
         $('ul li#'+this.state.currentPage).addClass('active');
-        //this.scrollToView();
+    }
+    componentWillReceiveProps = (nextProps) => {
+        this.setState({
+          todo: nextProps.data
+        })
     }
     handleClick(event) {
       let listid = Number(event.target.id);
@@ -38,7 +44,7 @@ class ShowData extends Component {
       this.setPrevAndNextBtnClass(listid);
     }
     setPrevAndNextBtnClass(listid) {
-      let totalPage = Math.ceil(this.props.data.length / this.state.todosPerPage);
+      let totalPage = Math.ceil(this.state.todo.length / this.state.todosPerPage);
       this.setState({isNextBtnActive: 'disabled'});
       this.setState({isPrevBtnActive: 'disabled'});
       if(totalPage === listid && totalPage > 1){
@@ -96,20 +102,18 @@ class ShowData extends Component {
       }, 500);
   }
     render() {
-      const { currentPage, todosPerPage,upperPageBound,lowerPageBound,isPrevBtnActive,isNextBtnActive } = this.state;
-
+      const { todo, currentPage, todosPerPage,upperPageBound,lowerPageBound,isPrevBtnActive,isNextBtnActive } = this.state;
       // Logic for displaying current todos
       const indexOfLastTodo = currentPage * todosPerPage;
       const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
-      const currentTodos = this.props.data.slice(indexOfFirstTodo, indexOfLastTodo);
-
+      const currentTodos = todo.slice(indexOfFirstTodo, indexOfLastTodo);
       const renderTodos = currentTodos.map((todo, index) => {
         return <Card key={index} data={todo} index={index}/>;
       });
 
       // Logic for displaying page numbers
       const pageNumbers = [];
-      for (let i = 1; i <= Math.ceil(this.props.data.length / todosPerPage); i++) {
+      for (let i = 1; i <= Math.ceil(todo.length / todosPerPage); i++) {
         pageNumbers.push(i);
       }
 
