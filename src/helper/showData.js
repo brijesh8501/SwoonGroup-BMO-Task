@@ -8,12 +8,12 @@ class ShowData extends Component {
       super(props);
       this.state = {
         currentPage: 1,
-        todosPerPage: 2,
-        upperPageBound: 2,
+        todosPerPage: 10,
+        upperPageBound: 10,
         lowerPageBound: 0,
         isPrevBtnActive: 'disabled',
         isNextBtnActive: '',
-        pageBound: 2
+        pageBound: 10
       };
       this.handleClick = this.handleClick.bind(this);
       this.btnDecrementClick = this.btnDecrementClick.bind(this);

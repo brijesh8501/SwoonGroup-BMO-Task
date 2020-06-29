@@ -7,7 +7,6 @@ const CreateMenu = (props) =>{
    // const checkUrl = window.location.pathname.replace(/#/, "");
     const checkActive = ((window.location.pathname===props.hrefLink) || (props.hrefLink !== "/" && window.location.pathname.includes(props.hrefLink))) ? 'active' : '';
     
-    console.log(checkActive);
     switch(props.menuType)
     {
         case('single') :
