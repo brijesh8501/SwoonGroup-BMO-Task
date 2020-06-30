@@ -4,16 +4,62 @@ Answer:
 
 I spent 4-5 hours on this task. 
 
-If I had more time them I will spend time on improving design, WCAG, more precise filters and autocomplete input suggestion for filters name, address and postal code; currently only city filter has autocomplete functioanlity (first time I worked on autocomplete feature in React.js - consumed more time). 
+If I had more time them I will spend time on improving design, WCAG stuff, more precise filters and autocomplete input suggestion for filters name, address and postal code; currently only city filter has autocomplete functioanlity (first time I worked on autocomplete feature in React.js - consumed more time). 
 
-As QA is equally important so I have performed some QA test manually but I would also like to use automation testing which I have never done before; waiting for the challenge.
+As QA is equally important so I have performed some QA test manually but I would also like to use automation tools for testing which I have never used before; waiting for the challenge.
 
 2. What was the most useful feature that was added to the latest version of your chosen language? Please include a snippet of code that shows how you've used it.
 
 Answer:
 
-Autocomplete feature is the most useful feature and it can be very useful with machine learning implementation.
+Autocomplete feature is the most useful feature and it can be very useful with machine learning implementation. See the code snippet below:
+```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+  // start autocomplete
+    createAutoComplete = (searchFilter , searchInput) => {
+        const list = searchFilter.filter((item)=>{
+            if(searchInput && item.toLowerCase().startsWith(searchInput.toLowerCase())){
+                return toTitleCase(item);
+            }
+            
+        });
+        return list;
+    }
+    // autocomplete input text
+    handleAutoCompleteInput = (e) => {
+        
+        if(this.state.searchFilter === "city" && e.target.name === "searchInput"){
+                const listData = this.createAutoComplete(this.state.city, e.target.value);
+                const toShow = (listData.length===0) ? false:true;
 
+                const checkSingleData = (listData.length === 1)? (listData[0] === toTitleCase(e.target.value)) ? 'empty' : 'full-list' : 'full-list';
+                this.setState({
+                    autoCompleteList: (checkSingleData === "empty") ? [] : listData,
+                    settings: {
+                        ...this.state.settings,
+                        autoCompleteListShow: (checkSingleData === "empty") ? false : toShow,
+                        autoCompleteListEmpty: (listData.length===0 && e.target.value)? true : false,
+                        autoCompleteValue: (checkSingleData === "empty") ? e.target.value : this.state.autoCompleteValue,
+                        autoCompleteValueSet: (checkSingleData === "empty") ? true : this.state.autoCompleteValueSet,
+                    }
+                })
+        }
+    }
+    // autocomplete selected item from list
+    handleAutoCompleteOptionClick = (e) => {
+        e.preventDefault();
+        this.setState({
+            searchInput: e.currentTarget.innerHTML,
+            autoCompleteList: [],
+            settings: {
+                ...this.state.settings,
+                autoCompleteValue: e.currentTarget.innerHTML,
+                autoCompleteListShow: false,
+                autoCompleteValueSet: true
+            }
+        })
+              
+    }
+```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 3. How would you track down a performance issue in production? Have you ever had to do this?
 
 Anwser:
