@@ -26,8 +26,8 @@ class ShowData extends Component {
 
     }
     componentDidUpdate() {
-        $("ul li.active").removeClass('active');
-        $('ul li#'+this.state.currentPage).addClass('active');
+        $("ul.pagination li.active").removeClass('active');
+        $('ul.pagination li#'+this.state.currentPage).addClass('active');
     }
     componentWillReceiveProps = (nextProps) => {
         this.setState({
@@ -39,8 +39,8 @@ class ShowData extends Component {
       this.setState({
         currentPage: listid
       });
-      $("ul li.active").removeClass('active');
-      $('ul li#'+listid).addClass('active');
+      $("ul.pagination li.active").removeClass('active');
+      $('ul.pagination li#'+listid).addClass('active');
       this.setPrevAndNextBtnClass(listid);
     }
     setPrevAndNextBtnClass(listid) {
