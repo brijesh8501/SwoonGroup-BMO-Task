@@ -27,8 +27,8 @@ class Header extends Component{
                                 <img src={Logo} className="img-fluid logo" alt="React logo" />
                             </Link>
                         </div>
-                        <div className="sidebar-menu-wrapper d-none">
-                            <span onClick={this.openNav} className="btn-sidebar sidebar-open d-md-none">&#9776; Menu</span>
+                        <div className="sidebar-menu-wrapper">
+                            <span onClick={this.openNav} className="btn-sidebar sidebar-open">&#9776; Menu</span>
                             <SideBar menuItems = {MENU}/>
                         </div>  
                     </div>
